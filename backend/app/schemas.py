@@ -10,7 +10,18 @@ class NewsItemCreate(BaseModel):
     media_url: Optional[str] = None
     subject_ids: List[int] = []
     exam_type_ids: List[int] = []
-    status: str = "draft"
+    status: str = "draft"           # draft or scheduled
+    scheduled_for: Optional[datetime] = None
+
+class NewsItemUpdate(BaseModel):
+    title: Optional[str] = None
+    body: Optional[str] = None
+    hashtags: Optional[str] = None
+    source_url: Optional[str] = None
+    media_url: Optional[str] = None
+    subject_ids: Optional[List[int]] = None
+    exam_type_ids: Optional[List[int]] = None
+    status: Optional[str] = None
     scheduled_for: Optional[datetime] = None
 
 class NewsItemResponse(BaseModel):
