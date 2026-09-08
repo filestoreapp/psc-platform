@@ -1,10 +1,9 @@
-from dotenv import load_dotenv
-load_dotenv()
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.database import engine, Base
-from app.routers import news, quizzes, admin, test
+from dotenv import load_dotenv
+from app.routers import news, quizzes, admin, test, subjects_exams
+
+load_dotenv()
 
 app = FastAPI(title="PSC Platform API")
 
@@ -16,14 +15,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.on_event("startup")
-async def startup():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
 app.include_router(news.router, prefix="/api/v1", tags=["news"])
 app.include_router(quizzes.router, prefix="/api/v1", tags=["quizzes"])
 app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
+app.include_router(subjects_exams.router, prefix="/api/v1", tags=["subjects-exams"])
 app.include_router(test.router, prefix="/api/v1", tags=["test"])
 
 @app.get("/")
