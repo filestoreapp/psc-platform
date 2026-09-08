@@ -1,9 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
 from app.routers import news, quizzes, admin, test, subjects_exams
-
-load_dotenv()
 
 app = FastAPI(title="PSC Platform API")
 
